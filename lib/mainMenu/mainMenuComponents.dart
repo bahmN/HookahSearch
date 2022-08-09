@@ -77,7 +77,39 @@ class InfoAboutHookah {
     'assets/images/photoHookah/hookahtime3.jpg',
   ];
   List<String> imgO2 = [
-    'assets/images/photoHookah/hookaho2_1.png',
-    'assets/images/photoHookah/hookaho2_2.png',
+    'assets/images/photoHookah/o2_1.png',
+    'assets/images/photoHookah/o2_2.png',
+  ];
+
+  List<String> imgTheTop = [
+    'assets/images/photoHookah/thetop1.jpg',
+    'assets/images/photoHookah/thetop2.jpg',
+    'assets/images/photoHookah/thetop3.jpg',
+  ];
+
+  List<String> imgDed = [
+    'assets/images/photoHookah/ded1.jpg',
+    'assets/images/photoHookah/ded2.jpg',
+    'assets/images/photoHookah/ded3.jpg',
+    'assets/images/photoHookah/ded4.jpg',
+  ];
+
+  List<String> imgNaNebe = [
+    'assets/images/photoHookah/nanebe1.jpg',
+    'assets/images/photoHookah/nanebe2.jpg',
+  ];
+
+  List<String> imgHookahPlace = [
+    'assets/images/photoHookah/hookahplace1.jpg',
+    'assets/images/photoHookah/hookahplace2.jpg',
+    'assets/images/photoHookah/hookahplace3.jpg',
+    'assets/images/photoHookah/hookahplace4.jpg',
+  ];
+
+  List<String> imgOblaka = [
+    'assets/images/photoHookah/oblaka1.jpg',
+    'assets/images/photoHookah/oblaka2.jpg',
+    'assets/images/photoHookah/oblaka3.jpg',
+    'assets/images/photoHookah/oblaka4.jpg',
   ];
 }

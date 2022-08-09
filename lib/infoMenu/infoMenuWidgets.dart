@@ -60,8 +60,6 @@ class _GalaryState extends State<Galary> {
                   initialPage: 0,
                   height: 44.3.h,
                   viewportFraction: 0.18.h,
-                  onPageChanged: (index, reason) =>
-                      setState(() => activeIndex = index),
                 ),
                 itemBuilder: (context, index, realIndex) {
                   final urlImage = snapshot.data?[index];
@@ -87,7 +85,13 @@ class _GalaryState extends State<Galary> {
     );
   }
 
-  Widget buildImage(String? urlImage, int index) => Image.asset(urlImage!);
+  Widget buildImage(String? urlImage, int index) => ClipRRect(
+        clipBehavior: Clip.hardEdge,
+        borderRadius: const BorderRadius.all(
+          Radius.circular(17.0),
+        ),
+        child: Image.asset(urlImage!),
+      );
 }
 
 class NameHookah extends StatefulWidget {

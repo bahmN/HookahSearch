@@ -95,7 +95,7 @@ class InfoTextLogic {
   Stream<List<String>?> get streamImgHookah {
     return _idController.stream.map(
       (id) {
-        if (id == null || id < 0 || id > infoHookah.imgHookahTime.length) {
+        if (id == null || id < 0) {
           return null;
         }
 
@@ -104,6 +104,16 @@ class InfoTextLogic {
             return infoHookah.imgHookahTime;
           case 1:
             return infoHookah.imgO2;
+          case 2:
+            return infoHookah.imgTheTop;
+          case 3:
+            return infoHookah.imgDed;
+          case 4:
+            return infoHookah.imgNaNebe;
+          case 5:
+            return infoHookah.imgHookahPlace;
+          case 6:
+            return infoHookah.imgOblaka;
           default:
             return null;
         }
