@@ -24,7 +24,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   icon: const Icon(Icons.keyboard_double_arrow_left_rounded),
                   func: () => Navigator.pop(context),
                 ),
-                const Galary(),
+                Galary(id: widget.id),
                 NameHookah(
                   id: widget.id,
                 ),
@@ -35,7 +35,11 @@ class _InfoScreenState extends State<InfoScreen> {
         ),
       );
     } else {
-      return ErrorScreen();
+      return const ErrorScreen(
+        title:
+            'Упс... Кажется, Вы не выбрали место где хотите отдохнуть... Нажмите на экран и выбирите на карте любую кальянную, чтобы узнать о ней информацию',
+        onTap: true,
+      );
     }
   }
 }

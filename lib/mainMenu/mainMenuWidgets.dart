@@ -3,7 +3,6 @@ import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:hookah_search/mainMenu/mainMenuBloc.dart';
 import 'package:hookah_search/mainMenu/mainMenuComponents.dart';
 import 'package:hookah_search/mainMenu/mainMenuLogic.dart';
 import 'package:page_transition/page_transition.dart';
@@ -66,13 +65,25 @@ class _AppBarMenuState extends State<AppBarMenu> {
 }
 
 class InfoHookah extends StatefulWidget {
-  const InfoHookah({Key? key, required this.getStream}) : super(key: key);
+  const InfoHookah({Key? key, required this.id, required this.getStream})
+      : super(key: key);
+  final int? id;
   final InfoTextLogic getStream;
   @override
   State<InfoHookah> createState() => _InfoHookahState();
 }
 
 class _InfoHookahState extends State<InfoHookah> {
+  void setId(BuildContext context) {
+    widget.getStream.id = widget.id;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setId(context));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -130,6 +141,7 @@ class _InfoHookahState extends State<InfoHookah> {
                     if (snapshot.hasData && snapshot.data != null) {
                       return Flexible(
                         child: Container(
+                          height: 7.0.h,
                           margin: const EdgeInsets.only(left: 15.0),
                           child: Text(
                             '${snapshot.data}',
@@ -138,14 +150,9 @@ class _InfoHookahState extends State<InfoHookah> {
                         ),
                       );
                     } else {
-                      return Flexible(
-                        child: Container(
-                          margin: const EdgeInsets.only(left: 15.0),
-                          child: const Text(
-                            '',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                        ),
+                      return Container(
+                        margin: const EdgeInsets.only(left: 15.0),
+                        child: const Text('', style: TextStyle(fontSize: 16.0)),
                       );
                     }
                   },
@@ -195,7 +202,7 @@ class _InfoHookahState extends State<InfoHookah> {
               ],
             ),
           ),
-          ButtonInfo(),
+          const ButtonInfo(),
         ],
       ),
     );
@@ -314,6 +321,45 @@ class _HookahMapState extends State<HookahMap> {
                           });
                         },
                       ),
+                      Marker(
+                        markerId: MarkerId(
+                            GoogleMapsComponents.markerId[4].toString()),
+                        position: GoogleMapsComponents.position[4],
+                        infoWindow: InfoWindow(
+                            title: GoogleMapsComponents.infoWidowTitle[4]),
+                        onTap: () {
+                          _getId(4);
+                          setState(() {
+                            hideInfo = !hideInfo;
+                          });
+                        },
+                      ),
+                      Marker(
+                        markerId: MarkerId(
+                            GoogleMapsComponents.markerId[5].toString()),
+                        position: GoogleMapsComponents.position[5],
+                        infoWindow: InfoWindow(
+                            title: GoogleMapsComponents.infoWidowTitle[5]),
+                        onTap: () {
+                          _getId(5);
+                          setState(() {
+                            hideInfo = !hideInfo;
+                          });
+                        },
+                      ),
+                      Marker(
+                        markerId: MarkerId(
+                            GoogleMapsComponents.markerId[6].toString()),
+                        position: GoogleMapsComponents.position[6],
+                        infoWindow: InfoWindow(
+                            title: GoogleMapsComponents.infoWidowTitle[6]),
+                        onTap: () {
+                          _getId(6);
+                          setState(() {
+                            hideInfo = !hideInfo;
+                          });
+                        },
+                      ),
                     },
                   ),
                 ),
@@ -386,11 +432,38 @@ class _HookahMapState extends State<HookahMap> {
                             title: GoogleMapsComponents.infoWidowTitle[3]),
                         onTap: () => _getId(3),
                       ),
+                      Marker(
+                        markerId: MarkerId(
+                            GoogleMapsComponents.markerId[4].toString()),
+                        position: GoogleMapsComponents.position[4],
+                        infoWindow: InfoWindow(
+                            title: GoogleMapsComponents.infoWidowTitle[4]),
+                        onTap: () => _getId(4),
+                      ),
+                      Marker(
+                        markerId: MarkerId(
+                            GoogleMapsComponents.markerId[5].toString()),
+                        position: GoogleMapsComponents.position[5],
+                        infoWindow: InfoWindow(
+                            title: GoogleMapsComponents.infoWidowTitle[5]),
+                        onTap: () => _getId(5),
+                      ),
+                      Marker(
+                        markerId: MarkerId(
+                            GoogleMapsComponents.markerId[6].toString()),
+                        position: GoogleMapsComponents.position[6],
+                        infoWindow: InfoWindow(
+                            title: GoogleMapsComponents.infoWidowTitle[6]),
+                        onTap: () => _getId(6),
+                      ),
                     },
                   ),
                 ),
               ),
-              InfoHookah(getStream: _stream),
+              InfoHookah(
+                id: idForInfo,
+                getStream: _stream,
+              ),
             ],
           ));
   }
@@ -611,7 +684,7 @@ class AboutUs extends StatelessWidget {
                       style: TextStyle(fontSize: 2.0.h),
                     ),
                     Text(
-                      '©HOOKAHSEARCH 2022'.toUpperCase(),
+                      '©hookahsearch 2022'.toUpperCase(),
                       style: TextStyle(
                           fontSize: 2.5.h, color: HexColor('#D4D4D4')),
                     ),

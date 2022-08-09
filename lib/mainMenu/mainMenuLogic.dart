@@ -92,6 +92,25 @@ class InfoTextLogic {
     );
   }
 
+  Stream<List<String>?> get streamImgHookah {
+    return _idController.stream.map(
+      (id) {
+        if (id == null || id < 0 || id > infoHookah.imgHookahTime.length) {
+          return null;
+        }
+
+        switch (id) {
+          case 0:
+            return infoHookah.imgHookahTime;
+          case 1:
+            return infoHookah.imgO2;
+          default:
+            return null;
+        }
+      },
+    );
+  }
+
   void dispose() {
     _idController.close();
   }

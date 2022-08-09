@@ -1,6 +1,8 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
 import '../colors.dart';
@@ -9,13 +11,25 @@ import '../mainMenu/mainMenuLogic.dart';
 final _blackColor = ColorsLightTheme().blackColor;
 
 class Galary extends StatefulWidget {
-  const Galary({Key? key}) : super(key: key);
-
+  const Galary({Key? key, required this.id}) : super(key: key);
+  final int? id;
   @override
   State<Galary> createState() => _GalaryState();
 }
 
 class _GalaryState extends State<Galary> {
+  final _stream = InfoTextLogic();
+  int activeIndex = 0;
+  void setId(BuildContext context) {
+    _stream.id = widget.id;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setId(context));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,8 +45,49 @@ class _GalaryState extends State<Galary> {
           width: 2.0,
         ),
       ),
+      child: StreamBuilder<List<String>?>(
+        stream: _stream.streamImgHookah,
+        builder: (context, snapshot) {
+          if (snapshot.data != null && snapshot.hasData) {
+            return ClipRRect(
+              clipBehavior: Clip.hardEdge,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(17.0),
+              ),
+              child: CarouselSlider.builder(
+                itemCount: snapshot.data?.length,
+                options: CarouselOptions(
+                  initialPage: 0,
+                  height: 44.3.h,
+                  viewportFraction: 0.18.h,
+                  onPageChanged: (index, reason) =>
+                      setState(() => activeIndex = index),
+                ),
+                itemBuilder: (context, index, realIndex) {
+                  final urlImage = snapshot.data?[index];
+                  return buildImage(urlImage, index);
+                },
+              ),
+            );
+          } else {
+            return const ClipRRect(
+              clipBehavior: Clip.hardEdge,
+              borderRadius: BorderRadius.all(
+                Radius.circular(17.0),
+              ),
+              child: ErrorScreen(
+                title:
+                    'Упс... Кажется, данная кальянная не предоставила фотографии...',
+                onTap: false,
+              ),
+            );
+          }
+        },
+      ),
     );
   }
+
+  Widget buildImage(String? urlImage, int index) => Image.asset(urlImage!);
 }
 
 class NameHookah extends StatefulWidget {
@@ -249,32 +304,36 @@ class _AllInfoState extends State<AllInfo> {
                     stream: _stream.streamSocial,
                     builder: (context, snapshot) {
                       if (snapshot.hasData && snapshot.data != null) {
-                        return Flexible(
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 15.0),
-                            child: InkWell(
-                              onTap: null,
-                              child: Text(
-                                '${snapshot.data}',
-                                style: TextStyle(fontSize: 2.2.h),
-                              ),
+                        return Container(
+                          margin: const EdgeInsets.only(left: 15.0),
+                          child: InkWell(
+                            onTap: null,
+                            child: Text(
+                              '${snapshot.data}',
+                              style: TextStyle(fontSize: 2.2.h),
                             ),
                           ),
                         );
                       } else {
-                        return Flexible(
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 15.0),
-                            child: const Text(
-                              '',
-                              style: TextStyle(fontSize: 16.0),
-                            ),
+                        return Container(
+                          margin: const EdgeInsets.only(left: 15.0),
+                          child: const Text(
+                            '',
+                            style: TextStyle(fontSize: 16.0),
                           ),
                         );
                       }
                     },
                   ),
                 ],
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              margin: const EdgeInsets.only(top: 25),
+              child: Text(
+                '©hookahsearch 2022'.toUpperCase(),
+                style: TextStyle(fontSize: 2.5.h, color: HexColor('#D4D4D4')),
               ),
             ),
           ],
@@ -285,39 +344,72 @@ class _AllInfoState extends State<AllInfo> {
 }
 
 class ErrorScreen extends StatelessWidget {
-  const ErrorScreen({Key? key}) : super(key: key);
+  const ErrorScreen({Key? key, required this.title, required this.onTap})
+      : super(key: key);
+  final String title;
+  final bool onTap;
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: ('PTMono')),
-      home: Scaffold(
-        body: InkWell(
-          onTap: () => Navigator.pop(context),
-          child: Container(
-            padding: const EdgeInsets.all(10.0),
-            color: Colors.white,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  'assets/images/error.gif',
-                  width: 20.h,
+    return (onTap
+        ? MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(fontFamily: ('PTMono')),
+            home: Scaffold(
+              body: InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  padding: const EdgeInsets.all(10.0),
+                  color: Colors.white,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/error.gif',
+                        width: 20.h,
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: _blackColor, fontSize: 2.0.h),
+                      ),
+                    ],
+                  ),
                 ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                Text(
-                  'Упс... Кажется, Вы не выбрали место где хотите отдохнуть... Нажмите на экран и выбирите на карте любую кальянную, чтобы узнать о ней информацию',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: _blackColor, fontSize: 2.0.h),
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-      ),
-    );
+          )
+        : MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(fontFamily: ('PTMono')),
+            home: Scaffold(
+              body: InkWell(
+                child: Container(
+                  padding: const EdgeInsets.all(10.0),
+                  color: Colors.white,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/error.gif',
+                        width: 20.h,
+                      ),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                      Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: _blackColor, fontSize: 2.0.h),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ));
   }
 }
