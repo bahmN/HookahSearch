@@ -5,10 +5,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:sizer/sizer.dart';
 
-import '../colors.dart';
 import '../mainMenu/mainMenuLogic.dart';
-
-final _blackColor = ColorsLightTheme().blackColor;
 
 class Galary extends StatefulWidget {
   const Galary({Key? key, required this.id}) : super(key: key);
@@ -41,7 +38,7 @@ class _GalaryState extends State<Galary> {
           Radius.circular(20.0),
         ),
         border: Border.all(
-          color: _blackColor,
+          color: Theme.of(context).primaryColor,
           width: 2.0,
         ),
       ),
@@ -122,7 +119,7 @@ class _NameHookahState extends State<NameHookah> {
       width: double.infinity,
       height: 5.h,
       margin: const EdgeInsets.only(top: 5),
-      color: _blackColor,
+      color: Theme.of(context).primaryColor,
       child: StreamBuilder<String?>(
         stream: _stream.streamNameHookah,
         builder: (context, snapshot) {
@@ -196,7 +193,7 @@ class _AllInfoState extends State<AllInfo> {
                           itemSize: 3.h,
                           itemBuilder: (context, _) => Icon(
                             Icons.star,
-                            color: _blackColor,
+                            color: Theme.of(context).primaryColor,
                           ),
                         ),
                       );
@@ -378,7 +375,9 @@ class ErrorScreen extends StatelessWidget {
                       Text(
                         title,
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: _blackColor, fontSize: 2.0.h),
+                        style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 2.0.h),
                       ),
                     ],
                   ),
@@ -407,7 +406,9 @@ class ErrorScreen extends StatelessWidget {
                       Text(
                         title,
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: _blackColor, fontSize: 2.0.h),
+                        style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: 2.0.h),
                       ),
                     ],
                   ),

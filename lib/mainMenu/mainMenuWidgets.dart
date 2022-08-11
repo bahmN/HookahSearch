@@ -8,10 +8,7 @@ import 'package:hookah_search/mainMenu/mainMenuLogic.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
 
-import '../colors.dart';
 import '../infoMenu/infoMenuScreen.dart';
-
-final _blackColor = ColorsLightTheme().blackColor;
 
 class AppBarMenu extends StatefulWidget {
   const AppBarMenu({Key? key, required this.icon, required this.func})
@@ -110,7 +107,7 @@ class _InfoHookahState extends State<InfoHookah> {
                         itemSize: 3.h,
                         itemBuilder: (context, _) => Icon(
                           Icons.star,
-                          color: _blackColor,
+                          color: Theme.of(context).primaryColor,
                         ),
                       ),
                     );
@@ -252,7 +249,7 @@ class _HookahMapState extends State<HookahMap> {
                     topRight: Radius.circular(20.0),
                   ),
                   border: Border.all(
-                    color: _blackColor,
+                    color: Theme.of(context).primaryColor,
                     width: 2.0,
                   ),
                 ),
@@ -379,7 +376,7 @@ class _HookahMapState extends State<HookahMap> {
                     Radius.circular(20.0),
                   ),
                   border: Border.all(
-                    color: _blackColor,
+                    color: Theme.of(context).primaryColor,
                     width: 2.0,
                   ),
                 ),
@@ -491,7 +488,6 @@ class _ButtonsMapState extends State<ButtonsMap> {
       child: ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
-          primary: _blackColor,
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(20.0),
@@ -535,7 +531,7 @@ class ButtonInfoState extends State<ButtonInfo> {
           ),
           fixedSize: Size(30.h, 4.h),
           textStyle: const TextStyle(fontSize: 18.0, color: Colors.white),
-          primary: _blackColor,
+          primary: Theme.of(context).primaryColor,
         ),
         child: Text('Информация'.toUpperCase()),
       ),
@@ -558,7 +554,7 @@ class _CustomDrawer extends State<CustomDrawer> {
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border.all(color: _blackColor, width: 2),
+        border: Border.all(color: Theme.of(context).primaryColor, width: 2),
       ),
       child: Column(
         children: [
@@ -667,7 +663,7 @@ class AboutUs extends StatelessWidget {
                           fixedSize: Size(double.infinity, 4.h),
                           textStyle:
                               TextStyle(fontSize: 2.5.h, color: Colors.white),
-                          primary: _blackColor,
+                          // primary: Theme.of(context).primaryColor,
                         ),
                         child: Text('Вернуться назад'.toUpperCase()),
                       ),

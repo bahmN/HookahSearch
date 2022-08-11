@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hookah_search/themes.dart';
 import 'package:hookah_search/mainMenu/mainMenuWidgets.dart';
 import 'package:sizer/sizer.dart';
 import 'mainMenu/mainMenuScreen.dart';
@@ -21,7 +22,7 @@ class _MyAppState extends State<MyApp> {
       builder: (context, orientation, deviceType) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(fontFamily: ('PTMono')),
+          theme: lightTheme,
           home: const Scaffold(
             body: SafeArea(
               child: MainMenuScreen(),
