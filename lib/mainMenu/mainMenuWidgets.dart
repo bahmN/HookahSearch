@@ -5,6 +5,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:hookah_search/mainMenu/mainMenuComponents.dart';
 import 'package:hookah_search/mainMenu/mainMenuLogic.dart';
+import 'package:hookah_search/themes.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:sizer/sizer.dart';
 
@@ -623,7 +624,7 @@ class AboutUs extends StatelessWidget {
   Widget build(context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: ('PTMono')),
+      theme: lightTheme,
       home: Scaffold(
         body: Container(
           padding: const EdgeInsets.all(10.0),
@@ -663,7 +664,7 @@ class AboutUs extends StatelessWidget {
                           fixedSize: Size(double.infinity, 4.h),
                           textStyle:
                               TextStyle(fontSize: 2.5.h, color: Colors.white),
-                          // primary: Theme.of(context).primaryColor,
+                          primary: Theme.of(context).primaryColor,
                         ),
                         child: Text('Вернуться назад'.toUpperCase()),
                       ),

@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:hookah_search/themes.dart';
 import 'package:sizer/sizer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../mainMenu/mainMenuLogic.dart';
 
@@ -308,7 +310,14 @@ class _AllInfoState extends State<AllInfo> {
                         return Container(
                           margin: const EdgeInsets.only(left: 15.0),
                           child: InkWell(
-                            onTap: null,
+                            onTap: () async {
+                              final Uri _url =
+                                  Uri.parse('https://${snapshot.data}');
+
+                              if (!await launchUrl(_url)) {
+                                throw 'Could not launch $_url';
+                              }
+                            },
                             child: Text(
                               '${snapshot.data}',
                               style: TextStyle(fontSize: 2.2.h),
@@ -355,7 +364,7 @@ class ErrorScreen extends StatelessWidget {
     return (onTap
         ? MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(fontFamily: ('PTMono')),
+            theme: lightTheme,
             home: Scaffold(
               body: InkWell(
                 onTap: () => Navigator.pop(context),
@@ -387,7 +396,7 @@ class ErrorScreen extends StatelessWidget {
           )
         : MaterialApp(
             debugShowCheckedModeBanner: false,
-            theme: ThemeData(fontFamily: ('PTMono')),
+            theme: lightTheme,
             home: Scaffold(
               body: InkWell(
                 child: Container(
