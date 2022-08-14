@@ -263,7 +263,6 @@ class _HookahMapState extends State<HookahMap> {
                   ),
                   child: GoogleMap(
                     onTap: (argument) => _getId(null),
-                    trafficEnabled: true,
                     initialCameraPosition: const CameraPosition(
                         target: LatLng(56.631600, 47.886176), zoom: 12.0),
                     mapToolbarEnabled: false,
