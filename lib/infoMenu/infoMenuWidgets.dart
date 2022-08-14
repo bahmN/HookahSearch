@@ -311,11 +311,10 @@ class _AllInfoState extends State<AllInfo> {
                           margin: const EdgeInsets.only(left: 15.0),
                           child: InkWell(
                             onTap: () async {
-                              final Uri _url =
-                                  Uri.parse('https://${snapshot.data}');
+                              final url = Uri.parse('https://${snapshot.data}');
 
-                              if (!await launchUrl(_url)) {
-                                throw 'Could not launch $_url';
+                              if (!await launchUrl(url)) {
+                                throw 'Could not launch $url';
                               }
                             },
                             child: Text(

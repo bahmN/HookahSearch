@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -393,7 +394,6 @@ class _HookahMapState extends State<HookahMap> {
                         hideInfo = !hideInfo;
                       });
                     },
-                    trafficEnabled: true,
                     initialCameraPosition: const CameraPosition(
                         target: LatLng(56.631600, 47.886176), zoom: 12.0),
                     mapToolbarEnabled: false,
@@ -550,69 +550,90 @@ class CustomDrawer extends StatefulWidget {
 class _CustomDrawer extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Theme.of(context).primaryColor, width: 2),
-      ),
-      child: Column(
-        children: [
-          Expanded(
-            flex: 15,
-            child: Container(
-              alignment: Alignment.center,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/images/logoHS.png'),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  InkWell(
-                    onTap: () => Navigator.pop(context),
-                    child: const Text(
-                      'Главная',
-                      style: TextStyle(fontSize: 16),
+    return SafeArea(
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(color: Theme.of(context).primaryColor, width: 2),
+        ),
+        child: Column(
+          children: [
+            Expanded(
+              flex: 15,
+              child: Container(
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/images/logoHS.png'),
+                    SizedBox(
+                      height: 20.h,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        PageTransition(
-                          type: PageTransitionType.rightToLeftWithFade,
-                          duration: const Duration(milliseconds: 250),
-                          child: const AboutUs(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'О нас',
-                      style: TextStyle(fontSize: 16),
+                    InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: const Text(
+                        'Главная',
+                        style: TextStyle(fontSize: 16),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            child: Container(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                '©HOOKAHSEARCH 2022'.toUpperCase(),
-                style: TextStyle(
-                  fontSize: 2.5.h,
-                  color: HexColor('#D4D4D4'),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.rightToLeftWithFade,
+                            duration: const Duration(milliseconds: 250),
+                            child: const ContactUs(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'Связаться с нами',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            type: PageTransitionType.rightToLeftWithFade,
+                            duration: const Duration(milliseconds: 250),
+                            child: const AboutUs(),
+                          ),
+                        );
+                      },
+                      child: const Text(
+                        'О нас',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ),
-        ],
+            Expanded(
+              child: Container(
+                alignment: Alignment.bottomCenter,
+                child: Text(
+                  '©HOOKAHSEARCH 2022'.toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 2.5.h,
+                    color: HexColor('#D4D4D4'),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -686,6 +707,159 @@ class AboutUs extends StatelessWidget {
                           fontSize: 2.5.h, color: HexColor('#D4D4D4')),
                     ),
                   ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ContactUs extends StatefulWidget {
+  const ContactUs({Key? key}) : super(key: key);
+
+  @override
+  State<ContactUs> createState() => _ContactUsState();
+}
+
+class _ContactUsState extends State<ContactUs> {
+  final _controllerMessage = TextEditingController();
+  final _controllerSubject = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controllerMessage.dispose();
+    _controllerSubject.dispose();
+  }
+
+  @override
+  Widget build(context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: lightTheme,
+      home: SafeArea(
+        child: Scaffold(
+          body: Column(
+            children: [
+              AppBarMenu(
+                icon: const Icon(Icons.keyboard_double_arrow_left_rounded),
+                func: () => Navigator.pop(context),
+              ),
+              Container(
+                height: 5.h,
+                width: double.infinity,
+                margin: const EdgeInsets.fromLTRB(15, 5, 15, 2.0),
+                padding: const EdgeInsets.only(left: 10.0),
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                  color: Theme.of(context).primaryColor,
+                ),
+                child: Text(
+                  'Кому: hs.partnership12@gmail.com ',
+                  style: TextStyle(
+                    fontSize: 14.0,
+                    color: Theme.of(context).secondaryHeaderColor,
+                  ),
+                ),
+              ),
+              Container(
+                height: 5.h,
+                width: double.infinity,
+                margin: const EdgeInsets.fromLTRB(15, 0, 15, 2.0),
+                padding: const EdgeInsets.only(left: 10.0),
+                color: Theme.of(context).primaryColor,
+                alignment: Alignment.centerLeft,
+                child: TextField(
+                  controller: _controllerSubject,
+                  style: TextStyle(
+                    color: Theme.of(context).secondaryHeaderColor,
+                  ),
+                  decoration: InputDecoration(
+                    isDense: true,
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                    border: InputBorder.none,
+                    hintText: 'Тема письма',
+                    hintStyle: TextStyle(
+                      fontSize: 14.0,
+                      color: Theme.of(context).secondaryHeaderColor,
+                    ),
+                    counterText: 'faf',
+                  ),
+                  cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
+                  cursorHeight: 14.0,
+                  cursorWidth: 5.0,
+                  maxLength: 36,
+                ),
+              ),
+              Container(
+                height: 30.h,
+                width: double.infinity,
+                margin: const EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 5.0),
+                padding: const EdgeInsets.all(10.0),
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(20.0),
+                    bottomRight: Radius.circular(20.0),
+                  ),
+                  color: Theme.of(context).primaryColor,
+                ),
+                child: TextField(
+                  controller: _controllerMessage,
+                  style: TextStyle(
+                    color: Theme.of(context).secondaryHeaderColor,
+                  ),
+                  decoration: InputDecoration(
+                    isDense: true,
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+                    border: InputBorder.none,
+                    hintText: 'Начните вводить текст...',
+                    hintStyle: TextStyle(
+                      fontSize: 14.0,
+                      color: Theme.of(context).secondaryHeaderColor,
+                    ),
+                  ),
+                  cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
+                  cursorHeight: 14.0,
+                  cursorWidth: 5.0,
+                  maxLines: 12,
+                ),
+              ),
+              Container(
+                height: 4.h,
+                width: double.infinity,
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    final Email email = Email(
+                      body: _controllerMessage.text,
+                      subject: _controllerSubject.text,
+                      recipients: ['hs.partnership12@gmail.com'],
+                      isHTML: false,
+                    );
+
+                    await FlutterEmailSender.send(email);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20.0),
+                      ),
+                    ),
+                    fixedSize: Size(double.infinity, 4.h),
+                    textStyle: TextStyle(fontSize: 2.5.h, color: Colors.white),
+                    primary: Theme.of(context).primaryColor,
+                  ),
+                  child: Text('Отправить сообщение'.toUpperCase()),
                 ),
               ),
             ],

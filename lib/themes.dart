@@ -5,6 +5,10 @@ final ThemeData lightTheme = ThemeData(
   colorScheme: ColorScheme.fromSwatch(
     accentColor: HexColor('#313131'),
   ),
+  textSelectionTheme: const TextSelectionThemeData(
+    cursorColor: Colors.white,
+  ),
   primaryColor: HexColor('#313131'),
+  secondaryHeaderColor: Colors.white,
   fontFamily: ('PTMono'),
 );
