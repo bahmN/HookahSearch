@@ -791,7 +791,7 @@ class _ContactUsState extends State<ContactUs> {
                       fontSize: 14.0,
                       color: Theme.of(context).secondaryHeaderColor,
                     ),
-                    counterText: 'faf',
+                    counterText: '',
                   ),
                   cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
                   cursorHeight: 14.0,
@@ -846,8 +846,9 @@ class _ContactUsState extends State<ContactUs> {
                       recipients: ['hs.partnership12@gmail.com'],
                       isHTML: false,
                     );
-
                     await FlutterEmailSender.send(email);
+                    _controllerMessage.clear();
+                    _controllerSubject.clear();
                   },
                   style: ElevatedButton.styleFrom(
                     shape: const RoundedRectangleBorder(

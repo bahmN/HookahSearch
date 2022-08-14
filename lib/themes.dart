@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 final ThemeData lightTheme = ThemeData(
+  backgroundColor: Colors.white,
   colorScheme: ColorScheme.fromSwatch(
     accentColor: HexColor('#313131'),
   ),
