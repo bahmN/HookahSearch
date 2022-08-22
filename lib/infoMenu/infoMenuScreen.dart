@@ -23,6 +23,7 @@ class _InfoScreenState extends State<InfoScreen> {
                 AppBarMenu(
                   icon: const Icon(Icons.keyboard_double_arrow_left_rounded),
                   func: () => Navigator.pop(context),
+                  addFavourites: true,
                 ),
                 Galary(id: widget.id),
                 NameHookah(

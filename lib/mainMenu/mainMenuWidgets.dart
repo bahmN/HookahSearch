@@ -13,10 +13,15 @@ import 'package:sizer/sizer.dart';
 import '../infoMenu/infoMenuScreen.dart';
 
 class AppBarMenu extends StatefulWidget {
-  const AppBarMenu({Key? key, required this.icon, required this.func})
-      : super(key: key);
+  const AppBarMenu({
+    Key? key,
+    required this.icon,
+    required this.func,
+    required this.addFavourites,
+  }) : super(key: key);
   final Icon icon;
   final Function func;
+  final bool addFavourites;
   @override
   State<AppBarMenu> createState() => _AppBarMenuState();
 }
@@ -24,42 +29,57 @@ class AppBarMenu extends StatefulWidget {
 class _AppBarMenuState extends State<AppBarMenu> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 5.h,
-      margin: EdgeInsets.only(top: 5, right: 5.h),
-      child: Row(
-        children: [
-          IconButton(
-            onPressed: () {
-              setState(() {
-                widget.func();
-              });
-            },
-            icon: widget.icon,
-          ),
-          Expanded(
-            child: Image.asset(
-              'assets/images/logoHS.png',
-              width: 20.h,
-              height: 3.h,
+    return (widget.addFavourites
+        ? Container(
+            height: 5.h,
+            margin: const EdgeInsets.only(top: 5),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      widget.func();
+                    });
+                  },
+                  icon: widget.icon,
+                ),
+                Image.asset(
+                  'assets/images/logoHS.png',
+                  width: 20.h,
+                  height: 3.h,
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.favorite_border),
+                ),
+              ],
             ),
-          ),
-          /*
-          for a future user-account
-          Container(
-            margin: const EdgeInsets.only(right: 15.0),
-            child: CircleAvatar(
-              backgroundColor: _blackColor,
-              child: Icon(
-                Icons.person_sharp,
-                color: HexColor('#FF727272'),
-              ),
+          )
+        : Container(
+            width: double.infinity,
+            height: 5.h,
+            margin: EdgeInsets.only(top: 5, right: 5.h),
+            child: Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      widget.func();
+                    });
+                  },
+                  icon: widget.icon,
+                ),
+                Expanded(
+                  child: Image.asset(
+                    'assets/images/logoHS.png',
+                    width: 20.h,
+                    height: 3.h,
+                  ),
+                ),
+              ],
             ),
-          )*/
-        ],
-      ),
-    );
+          ));
   }
 }
 
@@ -746,6 +766,7 @@ class _ContactUsState extends State<ContactUs> {
               AppBarMenu(
                 icon: const Icon(Icons.keyboard_double_arrow_left_rounded),
                 func: () => Navigator.pop(context),
+                addFavourites: false,
               ),
               Container(
                 height: 5.h,

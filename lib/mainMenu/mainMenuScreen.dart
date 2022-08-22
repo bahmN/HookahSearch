@@ -19,6 +19,7 @@ class _MainMenuScreenState extends State<MainMenuScreen> {
           AppBarMenu(
             icon: const Icon(Icons.apps),
             func: () => Scaffold.of(context).openDrawer(),
+            addFavourites: false,
           ),
           Expanded(
             child: ListView(
